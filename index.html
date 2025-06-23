@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1赛车知识库</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Titillium+Web:wght@600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e10600;
+            --primary-dark: #9c0400;
+            --dark: #15151e;
+            --light: #f8f9fa;
+            --gray: #e9ecef;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Titillium Web', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0.7)), url('https://ts1.tc.mm.bing.net/th/id/R-C.f52d0b38dcdc61cb970be545eb845562?rik=B5IdK%2ftnmlBd4w&riu=http%3a%2f%2fn.sinaimg.cn%2fsports%2ftransform%2f215%2fw650h365%2f20190714%2f2feb-hzuhxyp5444162.jpg&ehk=5nTeVetcSkJF0j680pZm1FzWY6DJ2sz5nJzmireL9X4%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1') no-repeat center center/cover;
+            height: 100vh;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(0, 0, 0, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            color: var(--light);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin: 0 15px;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+        
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* 主要内容区域 */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-header h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            border-color: rgba(225, 6, 0, 0.3);
+        }
+        
+        .card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .card:hover .card-img img {
+            transform: scale(1.1);
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .card p {
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+        
+        /* 时间线部分 */
+        .timeline-section {
+            background: url('https://ts1.tc.mm.bing.net/th/id/R-C.4102bc95f2c9d54a70c00b7930e3eeaf?rik=U95naQr5j437pA&riu=http%3a%2f%2fi0.sinaimg.cn%2fty%2ff1%2f2015-01-07%2fU1166P6T12D7472814F44DT20150107111159.jpg&ehk=j6LTeGWG29UVQXKDNYmevn02jznEAKkAUfV6xvbE1cQ%3d&risl=&pid=ImgRaw&r=0') no-repeat center center/cover fixed;
+            position: relative;
+        }
+        
+        .timeline-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline:after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            padding: 20px 40px;
+            position: relative;
+            width: 50%;
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item:after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border: 4px solid var(--dark);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(odd):after {
+            right: -10px;
+        }
+        
+        .timeline-item:nth-child(even):after {
+            left: -10px;
+        }
+        
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+            backdrop-filter: blur(10px);
+        }
+        
+        .timeline-content h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: #0a0a0f;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .footer-column p, .footer-column a {
+            color: #aaa;
+            margin-bottom: 15px;
+            display: block;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column a:hover {
+            color: var(--primary);
+            padding-left: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            .nav-links {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 5px 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .timeline:after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+                left: 0 !important;
+            }
+            
+            .timeline-item:nth-child(odd):after,
+            .timeline-item:nth-child(even):after {
+                left: 21px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部区域 -->
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <span>Formula One</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#history">历史</a></li>
+                <li><a href="#teams">车队</a></li>
+                <li><a href="#drivers">车手</a></li>
+                <li><a href="#technology">技术</a></li>
+                <li><a href="#circuits">赛道</a></li>
+            </ul>
+        </nav>
+        
+        <div class="hero">
+            <h1>探索F1赛车的极速世界</h1>
+            <p>世界一级方程式锦标赛（FIA Formula 1 World Championship，简称F1），是国际汽车联合会（FIA）举办的最高等级的年度系列场地赛车比赛，是当今世界最高水平的赛车比赛，与奥运会、世界杯足球赛并称为“世界三大体育盛事”。首次比赛于1950年英国银石赛道举行。在这里，您将深入了解F1的历史、车队、车手、技术和赛道等全方位知识。</p>
+            <a href="#history" class="btn">开始探索</a>
+        </div>
+    </header>
+    
+    <!-- 历史部分 -->
+    <section id="history" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>F1历史里程碑</h2>
+                <p>从1950年至今的辉煌历程</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>1950 - F1世界锦标赛诞生</h3>
+                        <p>第一届F1世界锦标赛在英国银石赛道举行，朱塞佩·法里纳赢得了首场比赛和首个世界冠军。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>1968 - 引入赞助商涂装</h3>
+                        <p>莲花车队首次在赛车上引入商业赞助商涂装，彻底改变了F1赛车的外观和商业模式。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>1981 - 碳纤维单体壳引入</h3>
+                        <p>迈凯轮车队首次使用碳纤维单体壳车身，大幅提升安全性和车辆刚性，成为现代F1赛车的标准。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2009 - 混合动力时代</h3>
+                        <p>动能回收系统(KERS)引入，标志着F1进入混合动力时代，为后续动力单元技术发展奠定基础。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2014 - 涡轮混合动力</h3>
+                        <p>引入1.6升V6涡轮增压混合动力单元，成为F1历史上最复杂、最高效的动力系统。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2024 - 迈凯伦再次夺冠</h3>
+                        <p>2024年12月8日，迈凯伦车队夺得该赛季F1车队总冠军，这也是该车队时隔26年夺得车队总冠军。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>2025 - 法拉利被索博超越...</h3>
+                        <p>F1西班牙大奖赛的第65圈，霍肯伯格驾驶着绿色索伯在1号弯强势超越汉密尔顿驾驶的红色法拉利SF-25。</p>
+                    </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 车队部分 -->
+    <section id="teams" class="section" style="background: #0f0f1a;">
+        <div class="container">
+            <div class="section-header">
+                <h2>顶级车队</h2>
+                <p>2025赛季参赛车队</p>
+            </div>
+            
+            <div class="cards">
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://n.sinaimg.cn/sinakd20220219s/408/w1728h1080/20220219/d0fe-f7f73d45ff8f675fadf538820ade787b.jpg" alt="梅赛德斯车队">
+                    </div>
+                    <div class="card-content">
+                        <h3>梅赛德斯-AMG车队</h3>
+                        <p>8次车队总冠军得主，2014-2021年统治F1赛场，以先进的动力单元和高效团队运作闻名。</p>
+                        <a href="https://www.formula1.com/en/teams/mercedes" class="btn" style="background: #00d2be; color: #000;">了解更多</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://n.sinaimg.cn/sinakd10108/600/w1920h1080/20220210/3f74-fe40d966d230b981e5c7dff4f18ff83a.jpg" alt="红牛车队">
+                    </div>
+                    <div class="card-content">
+                        <h3>红牛车队</h3>
+                        <p>核心科技：维斯塔潘</br>DUDUDUDU~</p>
+                        <a href="https://www.formula1.com/en/teams/red-bull-racing" class="btn" style="background: #0600ef; color: #fff;">了解更多</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://cdn.motorsport.com/images/mgl/YW7xQAxY/s1000/ferrari-sf-25.jpg" alt="法拉利车队">
+                    </div>
+                    <div class="card-content">
+                        <h3>法拉利车队</h3>
+                        <p>无需多言，F1历史上最成功的车队，16次车队总冠军。唯一自1950年首届锦标赛以来从未缺席的车队。</br>至于策略组：围场最佳盲盒。换胎工兼职咖啡师（慢煮意式浓缩），赛车稳定性比初恋还脆弱。进站像抽奖，换胎似拔河</p>
+                        <a href="https://www.formula1.com/en/teams/ferrari" class="btn" style="background: #dc0000; color: #fff;">了解更多</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 技术部分 -->
+    <section id="technology" class="section timeline-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>尖端技术</h2>
+                <p>F1赛车背后的工程奇迹</p>
+            </div>
+            
+            <div class="cards">
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://cjh2.autoimg.cn/chejiahaodfs/g31/M00/8B/84/1000x0_q100_autohomecar__ChtlyGYrqAOALwfdAAnddW9Ybhw15.jpeg?x_image_process=text/6YCJ6L2m5L6m5o6i/fontSize/13" alt="混合动力单元">
+                    </div>
+                    <div class="card-content">
+                        <h3>混合动力单元</h3>
+                        <p>1.6升V6涡轮增压发动机搭配复杂的能量回收系统(ERS)，热效率超过50%，是世界上最先进的混合动力系统之一。</br>但在2026年的新规下内燃机的马力输出不如F2！？</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://picx.zhimg.com/50/v2-37f1f7c99b5bd808fdb5ea858ef38673_720w.jpg?source=1def8aca" alt="空气动力学">
+                    </div>
+                    <div class="card-content">
+                        <h3>空气动力学</h3>
+                        <p>通过前翼、尾翼、底板等部件产生下压力，使赛车能以高速过弯。风洞测试和CFD模拟是研发的关键工具。</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-img">
+                        <img src="https://ts1.tc.mm.bing.net/th/id/R-C.69aa93a7e1cff624cc2c5fdc60a7dc29?rik=JvdXsZ%2fCwxK5bw&riu=http%3a%2f%2fn.sinaimg.cn%2fsinacn15%2f0%2fw1920h1280%2f20180714%2f50fe-hfhfwmv3940122.jpg&ehk=qzVceFw5mEAVjjx0iXGVlZkcwLcrPeByHhHV8rgqD1o%3d&risl=&pid=ImgRaw&r=0" alt="碳纤维材料">
+                    </div>
+                    <div class="card-content">
+                        <h3>碳纤维材料</h3>
+                        <p>赛车90%以上由碳纤维复合材料制成，提供极高的强度重量比，同时满足碰撞安全要求。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>关于我们</h3>
+                    <p>装逼的，这里根本点不开：）</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <a href="#home">首页</a>
+                    <a href="#history">F1历史</a>
+                    <a href="#teams">车队介绍</a>
+                    <a href="#drivers">车手档案(点不开)</a>
+                    <a href="#technology">赛车技术</a>
+                    <a href="#circuits">赛道指南（还是点不开）</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>最新资讯</h3>
+                    <a href="#">法拉利最牛逼</a>
+                    <a href="#">勒克莱尔最帅</a>
+                    <a href="#">嘻嘻</a>
+                    <a href="#">勒克莱尔最帅</a>
+                    <a href="#">法拉利最牛逼</a>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>联系我？</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 意大利-马拉内罗</p>
+                    <p><i class="fas fa-phone"></i> +86 138 3420 3653</p>
+                    <p><i class="fas fa-envelope"></i> 2849729788@qq.com</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 二向箔批发商. 保留所有权利。</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // 滚动动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 时间线项动画
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.style.opacity = 1;
+                        }, 150 * index);
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            timelineItems.forEach(item => {
+                observer.observe(item);
+            });
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
